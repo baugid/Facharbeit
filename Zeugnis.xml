@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Beschluss>
+    <zeugnis vers="0">
+        <jahr>1</jahr>
+        <Schueler>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz1bW53Gfv9gvpV6xO/AVHEODClXPnl9O6CqYWn0Q4N67+BLgQ3lo4194KJf2nc0SiT/wjs/nAm4u0JyI9LNlpiauWXfrkYom1Zd3oN7tdl+sQuTCmHB3L9/KVMPLg3x3Il4oZoXQYP83c9RpTgHuu/+LTHM6K6LJbkTkXI+k2DBYu8GDAxJ4t7haOQMO7Em2tu2kHVGLF3UlGrH+mG9lgsgasHFmypCD1ZCP2Lc9fJmmQBTCzFh/2qH1ekaPBIcM03gU5qWe/B4OJT3AqKCNWlDxxb9mTQW4Zyod2NFusYO5vbDnvm0hCRGH6nBXsx9yKb9r1YHZ/b4kMkwit6Zk+QIDAQAB</Schueler>
+        <besitzer>
+            <erziehungsberechtigter>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuEHoPxj2wpDHuegS5q04hrxt7QmY2+N9WX2SLJ5pmTA1cXCLhnnFBv6jzJi+JnpbYkLXuCMa8tV1TIB0huCPz+AISiDAtyVtlSOUTIpzXumYXfh5tXiYbR3nfFz9kVAp1BI1oLD1I849rFDQMJl5B/F6ZJGmFlLEiTm8OA24oLnLA0wFLgXzVliCAzODoSu3AO0ZIr8VCcw+xfTD7EPTsEGWtyYx6U+SyAiJ+wQX2NbKQq0HS4jbXwWZ5v82jeeqmG3vkBMa2LP0DIxbnTehIPunk+cNrVHV9lDLZzD19G/y9PUgPzYRrU4rvFsfmRbuUzeH2JqWlNNaOPodnneBawIDAQAB</erziehungsberechtigter>
+            <sonstiger>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArxV38thwKNtVnvQ3MZe8mLJOM/VzQ01tiinBz5/phAda1KvkWgKt7vF5RUXkH5ZRLbcRhbBwb5G/9P3T8QoQ2n4Ebkdf4bal1Pkv/o87l/j/dk3KND2Y6pt9kp3+1zuhWnZii1gO6wiV/4SNMtpKrexdW1jqbkiWrAsVgMQyRPBJw51crcRU6kgrAVIkaWSWp1+YA1y2M6xKrmzVugt53cyVqwlfLWkdFOzvsSHkcZHaTJIWk+U6UdVZyKksZwjjhdaTuOgGWLupuXvc/syqX759sA/lSiTEjIz5vZ16DTak2oMLb32wHW1tKRt/tVPAm2DmlOLpw633SNE4AYVHRwIDAQAB</sonstiger>
+        </besitzer>
+        <schule>
+            <schulnr>0</schulnr>
+            <publicKey>MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjuH1e++brLPObHlriudryc86O8Pj9nbTVFvQuTkYzVhImHWmZ5P6tssfxoaRbNfECkzH5xz4diFG+HV8shGY6+ENpC4h9Fi3WJRPYvxvhlqJ4qNJMiJka/C8rthNfqSEzCwoqi4X4s+Iwpi6hYEBMo9gObGbmSRrClxP3CnloiktnToFSumR30FqGM/+c30n9ibmLG4JntaE3V6WtSJcz2piyDhEHvxjuK4ZZ8SSvumLTvkSAk/2dPkvz48j2uZ+1z+i1U0fDnXz2PJqHaPFRN7+Pctc53u4a7GO29w260yu4DDP6Fx8eusTXqNtBKKrKKGxs2ZhQZrgZpK4/AtYqQIDAQAB</publicKey>
+        </schule>
+        <noten>
+            <note>
+                <zensur>16</zensur>
+                <fach>0</fach>
+                <fachlehrer>MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEexKPnOFHsiZvA09WFfFL1RnIpu059vzKgVzS7yFcTfl8rC4MVtOIbs+1WGRHHbAFh5QmRqpMpdnlLBcL3fpHEw==</fachlehrer>
+            </note>
+        </noten>
+        <bemerkungen>Bemerkung</bemerkungen>
+    </zeugnis>
+    <meta>
+        <klassenlehrer>
+            <publicKey>MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEVQ1eIfSKv86mtaEcQ/AKqyF+Xsb4IJJB7sMCAFkHOLGwDxbSbfQNksldNqZJ+utZsGnjikVyV0KV0uhae4wy6Q==</publicKey>
+            <privateKey>MD4CAQAwEAYHKoZIzj0CAQYFK4EEAAoEJzAlAgEBBCDS/HbcOzg0jcAIOi/29z5uqiO9g/vlxmW0DpcR1hQVnA==</privateKey>
+        </klassenlehrer>
+        <alleFachlehrer>
+            <fachlehrer>
+                <publicKey>MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEexKPnOFHsiZvA09WFfFL1RnIpu059vzKgVzS7yFcTfl8rC4MVtOIbs+1WGRHHbAFh5QmRqpMpdnlLBcL3fpHEw==</publicKey>
+                <privateKey>MD4CAQAwEAYHKoZIzj0CAQYFK4EEAAoEJzAlAgEBBCDHyNluZGd17KFS8PSHu/ZrqNlkb65A3/yGHLQPBpBvGw==</privateKey>
+            </fachlehrer>
+        </alleFachlehrer>
+        <schulleiterung>
+            <publicKey>MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEpaSEyelJFrMAgFUSHERZlzV0U3e4nLEjWthRbK4NJ9aOVVFhRTWh0lhjuzF1RsA0KfNkZpeVJUjnYEfUL0DPfQ==</publicKey>
+            <privateKey>MD4CAQAwEAYHKoZIzj0CAQYFK4EEAAoEJzAlAgEBBCCzLRlFhULnmjVoJylp593YNpLil/SX/Zqdrm66uFcyfQ==</privateKey>
+        </schulleiterung>
+    </meta>
+</Beschluss>
