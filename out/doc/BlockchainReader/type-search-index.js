@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"block","l":"Block"},{"p":"utils","l":"ByteUtils"},{"p":"utils","l":"CryptoUtils"},{"p":"<Unnamed>","l":"MainReader"},{"p":"block","l":"Note"},{"p":"block","l":"OwnerType"},{"p":"utils","l":"ProtocolCommands"},{"p":"network","l":"ServerConnection"}]
