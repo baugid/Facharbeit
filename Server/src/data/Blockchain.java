@@ -38,9 +38,8 @@ public class Blockchain {
             } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
                 throw new IOException("Corrupted chain!", e);
             }
-        } else
-            if(!chain.createNewFile())
-                throw new IOException("Parameter is not a file!");
+        } else if (!chain.createNewFile())
+            throw new IOException("Parameter is not a file!");
     }
 
     /**
@@ -53,7 +52,7 @@ public class Blockchain {
     }
 
     /**
-     * Läd die Blockchain aus einer Datei.
+     * Lädt die Blockchain aus einer Datei.
      *
      * @throws IOException sollte es irgendwelche Fehler beim Laden geben.
      * @see InvalidKeySpecException
@@ -145,16 +144,15 @@ public class Blockchain {
         try {
             b = new Block(block);
             if (!b.verify(getLastHash())) return false;
-        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException | ArrayIndexOutOfBoundsException e) {
             return false;
         }
         try {
-            data.add(b);
             writeToFile(block);
         } catch (IOException e) {
-            data.remove(b);
             return false;
         }
+        data.add(b);
         return true;
     }
 

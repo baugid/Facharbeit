@@ -9,8 +9,8 @@ import utils.ProtocolCommands;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -80,7 +80,7 @@ class Client implements AutoCloseable {
      *
      * @param e Der entstandene Fehler.
      */
-    private void handleException(Exception e) {
+    private void handleException(Throwable e) {
         System.err.println("Fehler mit Client: " + e.getLocalizedMessage());
         secureClose();
     }
@@ -151,7 +151,12 @@ class Client implements AutoCloseable {
         readBytes(() -> {
             readCount = 0;
             requeueCounter = 0;
-            readData = new byte[ByteUtils.toInt(readData)];
+            try {
+                readData = new byte[ByteUtils.toInt(readData)];
+            } catch (OutOfMemoryError | Exception e) {
+                handleException(e);
+                return;
+            }
             nextTask = this::receiveStudent;
         });
     }
@@ -250,7 +255,12 @@ class Client implements AutoCloseable {
         readBytes(() -> {
             readCount = 0;
             requeueCounter = 0;
-            readData = new byte[ByteUtils.toInt(readData)];
+            try {
+                readData = new byte[ByteUtils.toInt(readData)];
+            } catch (OutOfMemoryError | Exception e) {
+                handleException(e);
+                return;
+            }
             nextTask = this::receiveBlock;
         });
     }
@@ -296,29 +306,6 @@ class Client implements AutoCloseable {
         nextTask = null;
     }
 
-    /**
-     * Sendet eine Fehlermeldung an den Client.
-     *
-     * @param msg Die gewünschte Fehlermeldung.
-     */
-    private void sendErrorMsg(String msg) {
-        byte[] data = new byte[0];
-        try {
-            data = msg.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException ignored) {
-            //shouldn't occur
-            secureClose();
-        }
-        try {
-            out.write(ProtocolCommands.ERROR);
-            out.write(ByteUtils.toBytes(data.length));
-            out.write(data);
-            secureClose();
-        } catch (IOException e) {
-            handleException(e);
-        }
-    }
-
     @Override
     public void close() throws Exception {
         nextTask = null;
@@ -343,13 +330,32 @@ class Client implements AutoCloseable {
                 return;
             }
 
-            do {
-                int readThisTime = in.read(readData, readCount, readData.length - readCount);
-                if (readThisTime == -1)
-                    throw new IOException("Unexpected end of stream!");
-                readCount += readThisTime;
-            } while (!s.isClosed() && readCount < readData.length);
-            andThen.run();
+            int readThisTime = in.read(readData, readCount, readData.length - readCount);
+            if (readThisTime == -1)
+                throw new IOException("Unexpected end of stream!");
+            readCount += readThisTime;
+
+            if (readCount < readData.length)
+                nextTask = () -> readBytes(andThen);
+            else
+                andThen.run();
+        } catch (IOException e) {
+            handleException(e);
+        }
+    }
+
+    /**
+     * Sendet eine Fehlermeldung an den Client.
+     *
+     * @param msg Die gewünschte Fehlermeldung.
+     */
+    private void sendErrorMsg(String msg) {
+        byte[] data = msg.getBytes(StandardCharsets.UTF_8);
+        try {
+            out.write(ProtocolCommands.ERROR);
+            out.write(ByteUtils.toBytes(data.length));
+            out.write(data);
+            secureClose();
         } catch (IOException e) {
             handleException(e);
         }
