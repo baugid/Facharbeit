@@ -44,19 +44,6 @@ public class ByteUtils {
     }
 
     /**
-     * Wandelt ein Bytearray in einen {@code int} um.
-     *
-     * @param in Das umzuwandelnde Bytearray.
-     * @return Der daraus resultierende {@code int}.
-     */
-    public static int toInt(byte[] in) {
-        bufInt.clear();
-        bufInt.put(in);
-        bufInt.position(0);
-        return bufInt.getInt();
-    }
-
-    /**
      * Wandelt ein Bytearray in eine {@code Collection<Byte>} um.
      *
      * @param in Das Bytearray.

@@ -1,6 +1,5 @@
 package network;
 
-import utils.ByteUtils;
 import utils.ProtocolCommands;
 
 import java.io.DataInputStream;
@@ -48,7 +47,7 @@ public class BlockchainConnection implements AutoCloseable {
      */
     public byte[] getLastHash() throws IOException {
         if (s.isClosed()) throw new IOException("Die Verbindung wurde schon beendet!");
-        out.write(ProtocolCommands.LASTHASH);
+        out.writeByte(ProtocolCommands.LASTHASH);
         out.flush();
         switch (in.readByte()) {
             case ProtocolCommands.ERROR:
@@ -68,8 +67,7 @@ public class BlockchainConnection implements AutoCloseable {
      * @throws IOException Der Fehler als Exception.
      */
     private void handleServerError() throws IOException {
-        byte[] data = readBytes(4);
-        int size = ByteUtils.toInt(data);
+        int size = in.readInt();
         throw new IOException("Fehlerbericht vom Server: " + new String(readBytes(size), StandardCharsets.UTF_8));
     }
 
@@ -92,8 +90,8 @@ public class BlockchainConnection implements AutoCloseable {
      */
     public boolean sendBlock(byte[] data) throws IOException {
         if (s.isClosed()) throw new IOException("Die Verbindung wurde schon beendet!");
-        out.write(ProtocolCommands.BLOCK);
-        out.write(ByteUtils.toBytes(data.length));
+        out.writeByte(ProtocolCommands.BLOCK);
+        out.writeInt(data.length);
         out.write(data);
         out.flush();
         switch (in.readByte()) {
@@ -133,12 +131,7 @@ public class BlockchainConnection implements AutoCloseable {
     private byte[] readBytes(int amount) throws IOException {
         int count = 0;
         byte[] data = new byte[amount];
-        do {
-            int readThisTime = in.read(data, count, amount - count);
-            if (readThisTime == -1)
-                throw new IOException("Unerwartetes Ende der Übertragung!");
-            count += readThisTime;
-        } while (!s.isClosed() && count < amount);
+        in.readFully(data);
         return data;
     }
 
