@@ -8,6 +8,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -101,11 +102,10 @@ public class ServerConnection implements AutoCloseable {
         getBlocksLoop:
         while (true)
             switch (in.readByte()) {
-                case ProtocolCommands.CLOSE:
-                    break getBlocksLoop;
                 case ProtocolCommands.BLOCK:
                     blocks.add(receiveBlock());
                     break;
+                case ProtocolCommands.CLOSE:
                 default:
                     break getBlocksLoop;
             }
@@ -120,7 +120,7 @@ public class ServerConnection implements AutoCloseable {
     private void handleServerError() throws IOException {
         byte[] data = readBytes(4);
         int size = ByteUtils.toInt(data);
-        throw new IOException("Fehlerbericht vom Server: " + new String(readBytes(size), "UTF-8"));
+        throw new IOException("Fehlerbericht vom Server: " + new String(readBytes(size), StandardCharsets.UTF_8));
     }
 
     /**

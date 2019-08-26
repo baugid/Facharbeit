@@ -7,6 +7,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -125,16 +126,15 @@ public class Block {
      * @see NoSuchAlgorithmException
      * @see SignatureException
      * @see InvalidKeyException
-     * @see UnsupportedEncodingException
      * @see NoSuchPaddingException
      * @see BadPaddingException
      * @see IllegalBlockSizeException
      * @see InvalidAlgorithmParameterException
      */
-    private void appendEncryptedPart(byte[] initVector) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, UnsupportedEncodingException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException {
+    private void appendEncryptedPart(byte[] initVector) throws InvalidKeySpecException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException {
         List<Byte> buffer = new ArrayList<>();
         appendGrades(buffer);
-        byte[] bemerkungsbytes = b.getBemerkungen().getBytes("UTF-8");
+        byte[] bemerkungsbytes = b.getBemerkungen().getBytes(StandardCharsets.UTF_8);
         buffer.addAll(toByteCollection(toBytes(bemerkungsbytes.length)));
         buffer.addAll(toByteCollection(bemerkungsbytes));
         int beginPos = finalData.size();

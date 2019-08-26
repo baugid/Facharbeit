@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Baut eine Verbindung zum Server auf und verwaltet diese.
@@ -69,7 +70,7 @@ public class BlockchainConnection implements AutoCloseable {
     private void handleServerError() throws IOException {
         byte[] data = readBytes(4);
         int size = ByteUtils.toInt(data);
-        throw new IOException("Fehlerbericht vom Server: " + new String(readBytes(size), "UTF-8"));
+        throw new IOException("Fehlerbericht vom Server: " + new String(readBytes(size), StandardCharsets.UTF_8));
     }
 
     /**

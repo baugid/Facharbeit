@@ -7,7 +7,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
@@ -139,16 +139,12 @@ public class Block {
      * @see NoSuchPaddingException
      * @see NoSuchAlgorithmException
      * @see InvalidKeyException
-     * @see UnsupportedEncodingException
      * @see InvalidAlgorithmParameterException
      */
-    public void parseEncrypted(PrivateKey key, int position, OwnerType type) throws IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
+    public void parseEncrypted(PrivateKey key, int position, OwnerType type) throws IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException {
         //Get AES key
         int positionOffset;
         switch (type) {
-            case STUDENT:
-                positionOffset = 0;
-                break;
             case SCHOOL:
                 positionOffset = 256;
                 break;
@@ -158,6 +154,7 @@ public class Block {
             case OTHER:
                 positionOffset = 256 * (2 + parentCount) + 2;
                 break;
+            case STUDENT:
             default:
                 positionOffset = 0;
         }
@@ -195,7 +192,7 @@ public class Block {
             //parse comment
             {
                 int commentSize = ByteUtils.toInt(Arrays.copyOfRange(body, parserPosition, parserPosition += 4));
-                bemerkungen = new String(Arrays.copyOfRange(body, parserPosition, parserPosition + commentSize), "UTF-8");
+                bemerkungen = new String(Arrays.copyOfRange(body, parserPosition, parserPosition + commentSize), StandardCharsets.UTF_8);
             }
         }
     }

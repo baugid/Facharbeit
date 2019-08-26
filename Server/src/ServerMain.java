@@ -4,7 +4,6 @@ import network.ConnectionHandler;
 import java.io.File;
 import java.io.IOException;
 
-@SuppressWarnings("WeakerAccess")
 public class ServerMain {
     public static void main(String[] args) throws IOException {
         if (args.length == 0) {

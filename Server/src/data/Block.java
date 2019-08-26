@@ -3,7 +3,7 @@ package data;
 import utils.ByteUtils;
 import utils.CryptoUtils;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
@@ -64,8 +64,8 @@ public class Block {
                     "\n" +
                     "Kommunale Kosten für die Umstellung fallen für die Vorbereitung zum Schuljahr 2026/2027 an, in dem der 6. Jahrgang des Jahres 2019/2020 in die 13. Klasse kommt. Höhere Kosten für die Lernmittelfreiheit fallen mit dem Schuljahr 2023/2024 an. Über die Höhe der Kosten verhandelt das Land mit den Kommunalen Spitzenverbänden unter Einschaltung eines Gutachters.\n" +
                     "\n" +
-                    "Durch die erweiterte Entscheidungsfreiheit der Schulen, eine sorgfältig vorbereitete und qualitativ abgesicherte Umstellung, einen dauerhaft verlässlichen Rahmen sowie eine gleichzeitige Stärkung der gymnasialen Bildung insgesamt soll die größtmögliche Akzeptanz bei den Beteiligten erreicht werden.  Dazu bedarf es eines fachlichen Austausches mit den Beteiligten sowie mit den anderen Bundesländern. All diese Prozesse wie auch die Änderung des Schulgesetzes, der Ausbildungs- und Prüfungsordnungen sowie der Kernlehrpläne bedürfen einer sorgfältigen Planung sowie einer gründlichen Umsetzung. An dieser Stelle werden fortlaufend die Entscheidungen veröffentlicht, die die Landesregierung in Sachen gymnasialer Bildungsgang trifft.").getBytes("UTF-8"));
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                    "Durch die erweiterte Entscheidungsfreiheit der Schulen, eine sorgfältig vorbereitete und qualitativ abgesicherte Umstellung, einen dauerhaft verlässlichen Rahmen sowie eine gleichzeitige Stärkung der gymnasialen Bildung insgesamt soll die größtmögliche Akzeptanz bei den Beteiligten erreicht werden.  Dazu bedarf es eines fachlichen Austausches mit den Beteiligten sowie mit den anderen Bundesländern. All diese Prozesse wie auch die Änderung des Schulgesetzes, der Ausbildungs- und Prüfungsordnungen sowie der Kernlehrpläne bedürfen einer sorgfältigen Planung sowie einer gründlichen Umsetzung. An dieser Stelle werden fortlaufend die Entscheidungen veröffentlicht, die die Landesregierung in Sachen gymnasialer Bildungsgang trifft.").getBytes(StandardCharsets.UTF_8));
+        } catch (NoSuchAlgorithmException e) {
             return new byte[32];
         }
     }
