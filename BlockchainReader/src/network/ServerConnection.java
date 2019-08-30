@@ -1,6 +1,5 @@
 package network;
 
-import utils.ByteUtils;
 import utils.CryptoUtils;
 import utils.ProtocolCommands;
 
@@ -56,7 +55,7 @@ public class ServerConnection implements AutoCloseable {
      */
     public byte[] getBlockWithHash(byte[] hash) throws IOException, IllegalArgumentException {
         if (hash.length != 32) throw new IllegalArgumentException("Der Hash muss 32 Byte lang sein!");
-        out.write(ProtocolCommands.GETBLOCK);
+        out.writeByte(ProtocolCommands.GETBLOCK);
         out.write(hash);
         out.flush();
         switch (in.readByte()) {
@@ -78,8 +77,7 @@ public class ServerConnection implements AutoCloseable {
      * @throws IOException sollte es irgendwelche Fehler bei der Kommunikation geben.
      */
     private byte[] receiveBlock() throws IOException {
-        byte[] data = readBytes(4);
-        int size = ByteUtils.toInt(data);
+        int size = in.readInt();
         return readBytes(size);
     }
 
@@ -93,9 +91,9 @@ public class ServerConnection implements AutoCloseable {
      * @throws NoSuchAlgorithmException sollte ein benötigter Algorithmus nicht gefunden werden.
      */
     public List<byte[]> getBlocksFromStudent(PublicKey key) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        out.write(ProtocolCommands.SGETBLOCK);
+        out.writeByte(ProtocolCommands.SGETBLOCK);
         byte[] keyData = CryptoUtils.encodeRSAKey(key);
-        out.write(ByteUtils.toBytes(keyData.length));
+        out.writeInt(keyData.length);
         out.write(keyData);
         out.flush();
         ArrayList<byte[]> blocks = new ArrayList<>();
@@ -118,8 +116,7 @@ public class ServerConnection implements AutoCloseable {
      * @throws IOException Der Fehler als Exception.
      */
     private void handleServerError() throws IOException {
-        byte[] data = readBytes(4);
-        int size = ByteUtils.toInt(data);
+        int size = in.readInt();
         throw new IOException("Fehlerbericht vom Server: " + new String(readBytes(size), StandardCharsets.UTF_8));
     }
 
@@ -131,14 +128,8 @@ public class ServerConnection implements AutoCloseable {
      * @throws IOException sollte es irgendwelche Fehler bei der Kommunikation geben.
      */
     private byte[] readBytes(int amount) throws IOException {
-        int count = 0;
         byte[] data = new byte[amount];
-        do {
-            int readThisTime = in.read(data, count, amount - count);
-            if (readThisTime == -1)
-                throw new IOException("Unerwartetes Ende der Übertragung!");
-            count += readThisTime;
-        } while (!s.isClosed() && count < amount);
+        in.readFully(data);
         return data;
     }
 
